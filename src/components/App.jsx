@@ -1,5 +1,3 @@
-import React from "react"
-
-const App = () => (<h1>Hello React!</h1>)
+const App = () => (<h1>Hello Thomas!</h1>)
 
 export default App
