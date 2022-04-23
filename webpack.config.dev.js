@@ -1,9 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const TerserPlugin = require('terser-plugin')
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
-
 
 const ruleForJavascript = {
   test: /\.(js|jsx)$/,
@@ -27,15 +24,15 @@ module.exports = {
   output: {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
-    clean: true,
-    publicPath: '/',
+  },
+  devServer: {
+    port: 8080,
+    open: true,
+    compress: true,
+    static: {directory: path.join(__dirname, 'dist')}
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
-    alias: {
-      '@components': path.resolve(__dirname, './src/components/'),
-      '@styles':path.resolve(__dirname, './src/styles/'),
-    },
+    extensions: ['.js', '.jsx']
   },
   module: {rules},
   plugins: [
@@ -46,12 +43,5 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: '[name].css'
     }),
-  ],
-  optimization: {
-    minimize: true,
-    minimizer: [
-      new TerserPlugin(),
-      new CssMinimizerPlugin(),
-    ]
-  }
+  ]
 }
