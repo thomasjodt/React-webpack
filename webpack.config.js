@@ -1,5 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const ruleForJavascript = {
   test: /\.(js|jsx)$/,
@@ -12,7 +13,11 @@ const ruleForHtml = {
   test: /\.html$/,
   use: {loader: 'html-loader'},
 }
-const rules = [ruleForJavascript, ruleForHtml]
+const ruleForCss = {
+  test: /\.(sa|sc|c)ss$/i,
+  use: ['style-loader', 'css-loader', 'sass-loader'],
+}
+const rules = [ruleForJavascript, ruleForHtml, ruleForCss]
 
 module.exports = {
   entry: './src/index.js',
@@ -35,6 +40,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './public/index.html',
       filename: './index.html',
+    }),
+    new MiniCssExtractPlugin({
+      filename: '[name].[hashcontent].css'
     }),
   ]
 }
